@@ -37809,7 +37809,7 @@
                       "
                       class="framer-text"
                     >
-                      Created by Rawcanvas
+                      Created by kenitzo
                     </p>
                   </div>
                 </div>
@@ -39123,78 +39123,91 @@
       setInterval(fixCalendlyLinks, 1000);
     </script>
 
-<!-- scroll script -->
- <script>
-document.addEventListener("click", function (e) {
-  const el = e.target.closest('[data-nested-link]');
-  if (!el) return;
+    <!-- scroll script -->
+    <script>
+      document.addEventListener(
+        "click",
+        function (e) {
+          const el = e.target.closest("[data-nested-link]");
+          if (!el) return;
 
-  const text = el.textContent || "";
-  if (!text.includes("Process")) return;
+          const text = el.textContent || "";
+          if (!text.includes("Process")) return;
 
-  e.preventDefault();
-  e.stopPropagation();
-  e.stopImmediatePropagation();
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
 
-  // 🔥 find section dynamically using heading
-  const target = [...document.querySelectorAll("h2, p")]
-    .find(el => el.textContent.includes("One hour of recording"));
+          // 🔥 find section dynamically using heading
+          const target = [...document.querySelectorAll("h2, p")].find((el) =>
+            el.textContent.includes("One hour of recording"),
+          );
 
-  if (target) {
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-}, true);
-</script>
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        },
+        true,
+      );
+    </script>
 
-<!-- case study script  -->
-<script>
-document.addEventListener("click", function (e) {
-  const link = e.target.closest("a");
-  if (!link) return;
+    <!-- case study script  -->
+    <script>
+      document.addEventListener(
+        "click",
+        function (e) {
+          const link = e.target.closest("a");
+          if (!link) return;
 
-  const text = (link.innerText || "").toLowerCase();
+          const text = (link.innerText || "").toLowerCase();
 
-  // target ONLY case study buttons
-  if (!text.includes("case")) return;
+          // target ONLY case study buttons
+          if (!text.includes("case")) return;
 
-  // 🚨 kill everything
-  e.preventDefault();
-  e.stopPropagation();
-  e.stopImmediatePropagation();
+          // 🚨 kill everything
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
 
-  // force your link
-  window.open(
-    "https://drive.google.com/drive/folders/1EEPVhCfXwDwkZlv6cDp_5GHLDIU6GbY3",
-    "_blank"
-  );
+          // force your link
+          window.open(
+            "https://drive.google.com/drive/folders/1EEPVhCfXwDwkZlv6cDp_5GHLDIU6GbY3",
+            "_blank",
+          );
 
-  return false;
-}, true);
-</script>
+          return false;
+        },
+        true,
+      );
+    </script>
 
-<!-- image override script  -->
-<script>
-function replaceExactImage() {
-  const imgs = document.querySelectorAll("img");
+    <!-- image override script  -->
+    <script>
+      function replaceImageAllDevices() {
+        document.querySelectorAll("img").forEach((img) => {
+          const src = img.src || "";
 
-  const target = imgs[20]; // 🎯 exact index
+          // 🎯 match BOTH desktop + mobile variants
+          if (
+            src.includes("RqBkFLWBx3HkwTYfKaM5wtQ2La8") ||
+            src.includes("RqbKfLWBx3HkwTYFKaM5wtQ2La8")
+          ) {
+            if (!img.dataset.fixed) {
+              img.src = "./my-image.jpg";
+              img.srcset = "";
+              img.dataset.fixed = "true";
 
-  if (!target) return;
+              console.log("✅ Image replaced (all devices):", img);
+            }
+          }
+        });
+      }
 
-  if (!target.dataset.fixed) {
-    target.src = "./my-image.jpg";
-    target.srcset = "";
-    target.dataset.fixed = "true";
+      // run multiple times (because framer switches layouts)
+      setInterval(replaceImageAllDevices, 500);
+    </script>
 
-    console.log("✅ EXACT image replaced:", target);
-  }
-}
 
-// run once after load
-window.addEventListener("load", () => {
-  setTimeout(replaceExactImage, 500);
-});
-</script>
 
     <script>
       document.addEventListener(
